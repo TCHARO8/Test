@@ -1,0 +1,43 @@
+<table class="styled-table tabledata">
+    <thead>
+    <th style="width: 100px">
+        Actions
+    </th>
+    <th>
+        Code
+    </th>
+    <th>
+        Libellé
+    </th>
+    <th>
+        Département
+    </th>
+    </thead>
+    <tbody>
+    {% for source in sources %}
+        <tr>
+            <td>
+                <!-- Default dropend button -->
+                <div class="btn-group dropend">
+                    <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ path('app_source_edit', {'id': source.id}) }}"> Modifier </a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_service_delete', {'id': source.id}) }}"> Supprimer </a></li>
+                    </ul>
+                </div>
+            </td>
+            <td>
+                {{ source.code }}
+            </td>
+            <td>
+                {{ source.libelleSource }}
+            </td>
+            <td>
+                {{ source.departement.libelleD }}
+            </td>
+
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

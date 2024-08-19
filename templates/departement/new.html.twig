@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} DEPARTEMENT {% endblock %}
+{% block breadcrumb_title %} DEPARTEMENT  {% endblock %}
+{% block icon_menu %}bi bi-bag-check{% endblock %}
+{% block breadcrumb_subtitle %}Gestion des départements {% endblock %}
+
+{% block content  %}
+
+    <div class="row g-1">
+        <div class="col-md-5">
+            <div class="card p-3">
+                {{ include('departement/_form.html.twig') }}
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="card p-3">
+                {{ include('departement/_table.html.twig') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

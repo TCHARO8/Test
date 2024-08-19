@@ -1,0 +1,187 @@
+<!-- Bootstrap bundle JS -->
+<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+<!--plugins-->
+<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/simplebar/js/simplebar.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/metismenu/js/metisMenu.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/easyPieChart/jquery.easypiechart.js') }}"></script>
+<script src="{{ asset('assets/plugins/peity/jquery.peity.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
+<script src="{{ asset('assets/js/pace.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
+<script src="{{ asset('assets/plugins/apexcharts-bundle/js/apexcharts.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!--app-->
+<script src="{{ asset('assets/js/app.js') }}"></script>
+<script src="{{ asset('assets/js/index.js') }}"></script>
+<script src="{{ asset('assets/js/table-datatable.js') }}"></script>
+<script src="{{ asset('assets/js/form-select2.js') }}"></script>
+<script src="{{ asset('assets/js/app.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://npmcdn.com/flatpickr@4.6.11/dist/l10n/fr.js"></script>
+
+<script src="{{ asset('assets/js/custom-flatpickr.js') }}"></script>
+<script src="{{ asset('assets/js/datatables.min.js') }}"></script>
+
+<script src="{{ asset('assets/js/jquery.steps.min.js') }}"></script>
+<script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+<script src=""></script>
+<script src="{{ asset('assets/js/lobibox.min.js') }}"></script>
+
+<script>
+    new PerfectScrollbar(".best-product")
+    new PerfectScrollbar(".top-sellers-list")
+</script>
+
+<script>
+    function warning_noti(msg) {
+        Lobibox.notify('warning', {
+            title: 'Avertissement',
+            pauseDelayOnHover: true,
+            continueDelayOnInactiveTab: false,
+            position: 'top right',
+            icon: 'bx bx-error',
+            msg: msg
+        });
+    }
+
+    function error_noti(msg) {
+        Lobibox.notify('error', {
+            title: 'Erreur',
+            pauseDelayOnHover: true,
+            continueDelayOnInactiveTab: false,
+            position: 'top right',
+            icon: 'bx bx-x-circle',
+            msg: msg
+        });
+    }
+
+    function success_noti(msg) {
+        Lobibox.notify('success', {
+            title: 'Succès',
+            pauseDelayOnHover: true,
+            continueDelayOnInactiveTab: false,
+            position: 'top right',
+            icon: 'bx bx-check-circle',
+            msg: msg
+        });
+    }
+
+    function checkRequiredLabels(element){
+        
+        
+        
+        for (var i = 0; i < element.length; i++) {
+            //Pour verifier l'email renseigné
+            if ($("#acteur_email").val() === $(element[i]).val()){
+                if (!$("#acteur_email").val().match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
+                    warning_noti("L'email que vous avez rensigné n'est pas correcte");
+                    return false
+                }
+            }
+            
+            // if($("#acteur_contact").val() === $(element[i]).val() ){
+            //     if(!$("#acteur_contact").val().match(/^([0-9]{8} }})$/)){
+            //         warning_noti("Le contact que vous avez entré n'est pas valide");
+            //         return false
+            //     }
+            // }
+            //Pour verifier si tous les champs sont non null
+            if ($(element[i]).val() === "" || $(element[i]).val() === null) {
+                label = $("label[for='" + $(element[i]).attr("id") + "']").html();
+                // Display an error notification
+                warning_noti("Le champ " + label + " est vide");
+                return false
+            }
+        }
+    }
+    
+    function checkJeuneFille(element){
+        for (var i = 0; i < element.length; i++) {
+	        if ($('#sexeHomme').is(':checked') && $('#acteur_nomJeuneFille').val() !==""){
+                warning_noti("Un homme ne  doit pas avoir un nom de jeune fille")
+                return false
+            }
+        }
+    }
+    
+    //rendre spinner in div taken in parameters
+    function showSpinner(element){
+        element = '#' + element;
+
+        $(element).html('<div class="d-flex justify-content-center"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
+    }
+
+    $(document).ready(function () {
+        {% for message in app.session.flashbag.get('warning') %}
+        warning_noti('{{ message }}')
+        {% endfor %}
+
+        {% for message in app.session.flashbag.get('error') %}
+        error_noti('{{ message }}')
+        {% endfor %}
+
+        {% for message in app.session.flashbag.get('success') %}
+        success_noti('{{ message }}');
+        {% endfor %}
+    });
+
+    var fr = '//cdn.datatables.net/plug-ins/1.10.20/i18n/French.json';
+    $(document).ready( function () {
+        $('.tabledata').DataTable({
+            "oLanguage": {
+                "sUrl": fr
+            },
+        });
+
+        $('.select_simple').select2({
+            width: '100%',
+            theme: "bootstrap",
+        });
+
+        $('.select_simple_modal').select2({
+            width: '100%',
+            theme: "bootstrap",
+            dropdownParent: $("#exampleModal")
+        });
+    });
+
+    // Hide or show detail panel
+    let detailHidden = 0
+    let primaryDetail = $(".primaryDetail");
+    let otherDetails = $(".otherDetails");
+
+    otherDetails.prepend('<i id="arrowDetail" class="fas fa-chevron-right btn btn-primary"></i>')
+    $(document).on("click", "#arrowDetail", function (e) {
+        e.preventDefault();
+        detailHidden++;
+        let arrowDetail = $("#arrowDetail");
+        if (detailHidden % 2 != 0) {
+            $(".otherDetails >.card").slideToggle(700);
+            setTimeout(() => {
+                otherDetails.removeClass("col-md-4");
+                otherDetails.addClass("hideAutreDetail");
+                primaryDetail.removeClass("col-md-8");
+                primaryDetail.addClass("fullPrimaryView");
+                arrowDetail.removeClass("fa-chevron-right");
+                arrowDetail.addClass("fa-chevron-left");
+            }, 1020);
+        } else {
+            setTimeout(() => {
+                otherDetails.addClass("col-md-4");
+                otherDetails.removeClass("hideAutreDetail");
+                primaryDetail.removeClass("fullPrimaryView");
+                primaryDetail.addClass("col-md-8");
+                arrowDetail.removeClass("fa-chevron-left");
+                arrowDetail.addClass("fa-chevron-right");
+                $(".otherDetails >.card").slideToggle(700);
+            }, 500);
+        }
+    });
+</script>
