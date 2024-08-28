@@ -1,0 +1,55 @@
+{% extends "base.html.twig" %}
+
+{% block breadcrumb_subtitle %} Liste des produits {% endblock %}
+
+{% block breadcrumb_title %} Produits {% endblock %}
+{% block title %} Liste des produits {% endblock %}
+
+{% block buttons %}
+    <div class="ms-auto">
+        <div class="btn-group">
+            <a href="{{ path('app_produit_new') }}" class='btn btn-primary'> Créer un nouveau produit</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="card p-3">
+        <table class="styled-table tabledata">
+            <thead>
+            <tr>
+                <th class="btn-action">actions</th>
+                <th>Nom</th>
+                <th>Prix</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for produit in produits %}
+                <tr>
+                    <td class="btn-action">
+                        <!-- Default dropend button -->
+                        <div class="btn-group dropend">
+                            <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="{{ path('app_produit_edit', {'id': produit.id}) }}"> Modifier </a>
+                                    <a class="dropdown-item deleteFormtable" href="{{ path('app_suprimer_produit', {'id': produit.id}) }}">Supprimer</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td>{{ produit.name }}</td>
+                    <td>{{ produit.priceHt }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+
+

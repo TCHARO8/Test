@@ -2,21 +2,21 @@
 
 namespace App\Repository;
 
-use App\Entity\Source;
+use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Source>
+ * @extends ServiceEntityRepository<Product>
  */
-class SourceRepository extends ServiceEntityRepository
+class ProductRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Source::class);
+        parent::__construct($registry, Product::class);
     }
 
-    public function save(Source $entity, bool $flush = false): void
+    public function save(Product $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -25,7 +25,7 @@ class SourceRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Source $entity, bool $flush = false): void
+    public function remove(Product $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -35,24 +35,24 @@ class SourceRepository extends ServiceEntityRepository
     }
 
     //    /**
-    //     * @return Source[] Returns an array of Source objects
+    //     * @return Product[] Returns an array of Product objects
     //     */
     //    public function findByExampleField($value): array
     //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
     //            ->setParameter('val', $value)
-    //            ->orderBy('s.id', 'ASC')
+    //            ->orderBy('p.id', 'ASC')
     //            ->setMaxResults(10)
     //            ->getQuery()
     //            ->getResult()
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Source
+    //    public function findOneBySomeField($value): ?Product
     //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
     //            ->setParameter('val', $value)
     //            ->getQuery()
     //            ->getOneOrNullResult()
